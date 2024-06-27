@@ -6,3 +6,4 @@ pdfminer.six
 numpy
 wrapt
 pillow_heif
+opencv-python
