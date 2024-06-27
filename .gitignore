@@ -4,3 +4,5 @@ Quickstart Competitive Analysis.pdf
 setup.ipynb
 vector_research.pdf
 weaviate_logo.png
+myenv/
+secrets.toml
