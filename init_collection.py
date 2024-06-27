@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv, find_dotenv
+# from dotenv import load_dotenv, find_dotenv
 import weaviate
 from weaviate.classes.config import Configure, Property, DataType
 
