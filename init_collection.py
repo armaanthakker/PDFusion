@@ -4,14 +4,19 @@ import weaviate
 from weaviate.classes.config import Configure, Property, DataType
 
 # Load environment variables
-_ = load_dotenv(find_dotenv())
+openai_key = st.secrets["OPENAI_API_KEY"]
+wcd_api_key = st.secrets["WCD_API_KEY"]
+wcd_url = st.secrets["WCD_URL"]
+stripe_secret_key = st.secrets["STRIPE_SECRET_KEY"]
+success_url = st.secrets["SUCCESS_URL"]
+cancel_url = st.secrets["CANCEL_URL"]
 
 # Connect to Weaviate
 client = weaviate.connect_to_weaviate_cloud(
-    cluster_url=os.getenv("WCD_URL"),
-    auth_credentials=weaviate.auth.AuthApiKey(os.getenv("WCD_API_KEY")),
+    cluster_url=wcd_url,
+    auth_credentials=weaviate.auth.AuthApiKey(wcd_api_key),
     headers={
-        "X-OpenAI-Api-Key": os.environ["OPENAI_APIKEY"]
+        "X-OpenAI-Api-Key": openai_key
     }
 )
 
