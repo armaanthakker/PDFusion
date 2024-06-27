@@ -3,3 +3,4 @@ weaviate-client
 python-dotenv
 stripe
 unstructured
+pdfminer.six
