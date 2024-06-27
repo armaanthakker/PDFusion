@@ -2,6 +2,7 @@ import os
 # from dotenv import load_dotenv, find_dotenv
 import weaviate
 from weaviate.classes.config import Configure, Property, DataType
+import streamlit as st
 
 # Load environment variables
 openai_key = st.secrets["OPENAI_API_KEY"]
