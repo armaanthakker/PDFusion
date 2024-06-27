@@ -5,12 +5,12 @@ from weaviate.classes.config import Configure, Property, DataType
 import streamlit as st
 
 # Load environment variables
-openai_key = st.secrets["OPENAI_API_KEY"]
-wcd_api_key = st.secrets["WCD_API_KEY"]
-wcd_url = st.secrets["WCD_URL"]
-stripe_secret_key = st.secrets["STRIPE_SECRET_KEY"]
-success_url = st.secrets["SUCCESS_URL"]
-cancel_url = st.secrets["CANCEL_URL"]
+openai_key = st.secrets["default"]["OPENAI_API_KEY"]
+wcd_api_key = st.secrets["default"]["WCD_API_KEY"]
+wcd_url = st.secrets["default"]["WCD_URL"]
+stripe_secret_key = st.secrets["default"]["STRIPE_SECRET_KEY"]
+success_url = st.secrets["default"]["SUCCESS_URL"]
+cancel_url = st.secrets["default"]["CANCEL_URL"]
 
 # Connect to Weaviate
 client = weaviate.connect_to_weaviate_cloud(
