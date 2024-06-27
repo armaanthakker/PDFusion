@@ -1,12 +1,17 @@
 import stripe
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # Load environment variables
-_ = load_dotenv()
+openai_key = st.secrets["OPENAI_API_KEY"]
+wcd_api_key = st.secrets["WCD_API_KEY"]
+wcd_url = st.secrets["WCD_URL"]
+stripe_secret_key = st.secrets["STRIPE_SECRET_KEY"]
+success_url = st.secrets["SUCCESS_URL"]
+cancel_url = st.secrets["CANCEL_URL"]
 
 # Set Stripe API key
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+stripe.api_key = stripe_secret_key
 
 def create_checkout_session():
     try:
@@ -23,8 +28,8 @@ def create_checkout_session():
                 'quantity': 1,
             }],
             mode='payment',
-            success_url=os.getenv("SUCCESS_URL"),
-            cancel_url=os.getenv("CANCEL_URL"),
+            success_url=success_url,
+            cancel_url=cancel_url,
         )
         return session
     except Exception as e:
