@@ -5,4 +5,4 @@ unstructured
 pdfminer.six
 numpy
 wrapt
-pathlib
+pillow_heif
