@@ -1,6 +1,8 @@
 import stripe
 import os
 # from dotenv import load_dotenv
+import streamlit as st
+
 
 # Load environment variables
 openai_key = st.secrets["OPENAI_API_KEY"]
