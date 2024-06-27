@@ -1,8 +1,9 @@
-streamlit
-weaviate-client
-stripe
-unstructured
-pdfminer.six
-numpy
-wrapt
-pillow_heif
+streamlit==1.36.0
+weaviate-client==3.6.0
+stripe==2.56.0
+unstructured==0.3.5
+pdfminer.six==20201018
+numpy==1.23.5
+wrapt==1.13.3
+pillow-heif==0.16.0
+opencv-python-headless==4.5.3.56
