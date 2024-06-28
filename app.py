@@ -1,16 +1,24 @@
+#Change out of test API for stripe, get out of WCD sandbox instance, and deploy code on streamlit
 import streamlit as st
 from init_collection import create_collection, get_client
+import os
+# from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
 from unstructured.partition.pdf import partition_pdf
 from stripe_helper import create_checkout_session
 
-# Load environment variables from Streamlit secrets
+# Load environment variables
+# _ = load_dotenv(find_dotenv())
+
 openai_key = st.secrets["default"]["OPENAI_API_KEY"]
 wcd_api_key = st.secrets["default"]["WCD_API_KEY"]
 wcd_url = st.secrets["default"]["WCD_URL"]
 stripe_secret_key = st.secrets["default"]["STRIPE_SECRET_KEY"]
 success_url = st.secrets["default"]["SUCCESS_URL"]
 cancel_url = st.secrets["default"]["CANCEL_URL"]
+
+# Connect to Weaviate
+client = get_client()
 
 # Custom CSS for better styling
 st.markdown("""
@@ -84,18 +92,39 @@ st.markdown("""
         color: green;
         font-size: 14px;
     }
-    .footer:hover {
-        transform: scale(1.1);
-    }
-    a.footer {
-        text-decoration: none;
-    }
-    </style>
-    <a href="https://weaviate.io" target="_blank" class="footer">
-        <div>
-            <p>Powered by Weaviate</p>
-        </div>
-    </a>
+<style>
+.footer {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+}
+.footer:hover {
+    transform: scale(1.1);
+}
+.footer p {
+    margin: 0;
+    color: green;
+    font-size: 14px;
+}
+a.footer {
+    text-decoration: none;
+}
+</style>
+<a href="https://weaviate.io" target="_blank" class="footer">
+    <div>
+        <p>Powered by Weaviate</p>
+    </div>
+</a>
+
+
 """, unsafe_allow_html=True)
 
 # Streamlit interface
@@ -104,10 +133,8 @@ st.markdown('<div class="title" style="font-size: 48px;">PDFusion</div>', unsafe
 
 # Value Proposition
 st.markdown('<div class="subtitle" style="text-align: center; font-size: 24px;">Unlock the Full Potential of Your PDFs</div>', unsafe_allow_html=True)
-st.markdown('<div style="text-align: center; font-size: 18px; margin-bottom: 30px;">Upload and search your PDF documents effortlessly. Pay to get started and enjoy seamless document management.</div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: center; font-size: 18px; margin-bottom: 30px; ">Upload and search your PDF documents effortlessly. Pay to get started and enjoy seamless document management.</div>', unsafe_allow_html=True)
 
-# Connect to Weaviate
-client = get_client()
 
 # Check if the client is ready
 client_ready = client.is_ready()
@@ -164,7 +191,7 @@ def perform_search(query, prompt):
     return response
 
 # Check if payment is done
-query_params = st.experimental_get_query_params()
+query_params = st.query_params
 if 'session_id' in query_params and query_params['session_id'][0] == 'success':
     st.session_state.payment_done = True
 
